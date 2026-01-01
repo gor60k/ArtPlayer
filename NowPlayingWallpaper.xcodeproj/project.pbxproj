@@ -1,0 +1,568 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		08E7C5102F06E5EF00B672AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08E7C4FA2F06E5EE00B672AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08E7C5012F06E5EE00B672AA;
+			remoteInfo = NowPlayingWallpaper;
+		};
+		08E7C51A2F06E5EF00B672AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08E7C4FA2F06E5EE00B672AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08E7C5012F06E5EE00B672AA;
+			remoteInfo = NowPlayingWallpaper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08E7C5022F06E5EE00B672AA /* NowPlayingWallpaper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NowPlayingWallpaper.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		08E7C50F2F06E5EF00B672AA /* NowPlayingWallpaperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NowPlayingWallpaperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		08E7C5192F06E5EF00B672AA /* NowPlayingWallpaperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NowPlayingWallpaperUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		08E7C5042F06E5EE00B672AA /* NowPlayingWallpaper */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NowPlayingWallpaper;
+			sourceTree = "<group>";
+		};
+		08E7C5122F06E5EF00B672AA /* NowPlayingWallpaperTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NowPlayingWallpaperTests;
+			sourceTree = "<group>";
+		};
+		08E7C51C2F06E5EF00B672AA /* NowPlayingWallpaperUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NowPlayingWallpaperUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		08E7C4FF2F06E5EE00B672AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08E7C50C2F06E5EF00B672AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08E7C5162F06E5EF00B672AA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08E7C4F92F06E5EE00B672AA = {
+			isa = PBXGroup;
+			children = (
+				08E7C5042F06E5EE00B672AA /* NowPlayingWallpaper */,
+				08E7C5122F06E5EF00B672AA /* NowPlayingWallpaperTests */,
+				08E7C51C2F06E5EF00B672AA /* NowPlayingWallpaperUITests */,
+				08E7C5032F06E5EE00B672AA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		08E7C5032F06E5EE00B672AA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08E7C5022F06E5EE00B672AA /* NowPlayingWallpaper.app */,
+				08E7C50F2F06E5EF00B672AA /* NowPlayingWallpaperTests.xctest */,
+				08E7C5192F06E5EF00B672AA /* NowPlayingWallpaperUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		08E7C5012F06E5EE00B672AA /* NowPlayingWallpaper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08E7C5232F06E5EF00B672AA /* Build configuration list for PBXNativeTarget "NowPlayingWallpaper" */;
+			buildPhases = (
+				08E7C4FE2F06E5EE00B672AA /* Sources */,
+				08E7C4FF2F06E5EE00B672AA /* Frameworks */,
+				08E7C5002F06E5EE00B672AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				08E7C5042F06E5EE00B672AA /* NowPlayingWallpaper */,
+			);
+			name = NowPlayingWallpaper;
+			packageProductDependencies = (
+			);
+			productName = NowPlayingWallpaper;
+			productReference = 08E7C5022F06E5EE00B672AA /* NowPlayingWallpaper.app */;
+			productType = "com.apple.product-type.application";
+		};
+		08E7C50E2F06E5EF00B672AA /* NowPlayingWallpaperTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08E7C5262F06E5EF00B672AA /* Build configuration list for PBXNativeTarget "NowPlayingWallpaperTests" */;
+			buildPhases = (
+				08E7C50B2F06E5EF00B672AA /* Sources */,
+				08E7C50C2F06E5EF00B672AA /* Frameworks */,
+				08E7C50D2F06E5EF00B672AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08E7C5112F06E5EF00B672AA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				08E7C5122F06E5EF00B672AA /* NowPlayingWallpaperTests */,
+			);
+			name = NowPlayingWallpaperTests;
+			packageProductDependencies = (
+			);
+			productName = NowPlayingWallpaperTests;
+			productReference = 08E7C50F2F06E5EF00B672AA /* NowPlayingWallpaperTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		08E7C5182F06E5EF00B672AA /* NowPlayingWallpaperUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08E7C5292F06E5EF00B672AA /* Build configuration list for PBXNativeTarget "NowPlayingWallpaperUITests" */;
+			buildPhases = (
+				08E7C5152F06E5EF00B672AA /* Sources */,
+				08E7C5162F06E5EF00B672AA /* Frameworks */,
+				08E7C5172F06E5EF00B672AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08E7C51B2F06E5EF00B672AA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				08E7C51C2F06E5EF00B672AA /* NowPlayingWallpaperUITests */,
+			);
+			name = NowPlayingWallpaperUITests;
+			packageProductDependencies = (
+			);
+			productName = NowPlayingWallpaperUITests;
+			productReference = 08E7C5192F06E5EF00B672AA /* NowPlayingWallpaperUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08E7C4FA2F06E5EE00B672AA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					08E7C5012F06E5EE00B672AA = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					08E7C50E2F06E5EF00B672AA = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 08E7C5012F06E5EE00B672AA;
+					};
+					08E7C5182F06E5EF00B672AA = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 08E7C5012F06E5EE00B672AA;
+					};
+				};
+			};
+			buildConfigurationList = 08E7C4FD2F06E5EE00B672AA /* Build configuration list for PBXProject "NowPlayingWallpaper" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 08E7C4F92F06E5EE00B672AA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 08E7C5032F06E5EE00B672AA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				08E7C5012F06E5EE00B672AA /* NowPlayingWallpaper */,
+				08E7C50E2F06E5EF00B672AA /* NowPlayingWallpaperTests */,
+				08E7C5182F06E5EF00B672AA /* NowPlayingWallpaperUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08E7C5002F06E5EE00B672AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08E7C50D2F06E5EF00B672AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08E7C5172F06E5EF00B672AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08E7C4FE2F06E5EE00B672AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08E7C50B2F06E5EF00B672AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08E7C5152F06E5EF00B672AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		08E7C5112F06E5EF00B672AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08E7C5012F06E5EE00B672AA /* NowPlayingWallpaper */;
+			targetProxy = 08E7C5102F06E5EF00B672AA /* PBXContainerItemProxy */;
+		};
+		08E7C51B2F06E5EF00B672AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08E7C5012F06E5EE00B672AA /* NowPlayingWallpaper */;
+			targetProxy = 08E7C51A2F06E5EF00B672AA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		08E7C5212F06E5EF00B672AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		08E7C5222F06E5EF00B672AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		08E7C5242F06E5EF00B672AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "russian-robotics.NowPlayingWallpaper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		08E7C5252F06E5EF00B672AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "russian-robotics.NowPlayingWallpaper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		08E7C5272F06E5EF00B672AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "russian-robotics.NowPlayingWallpaperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NowPlayingWallpaper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NowPlayingWallpaper";
+			};
+			name = Debug;
+		};
+		08E7C5282F06E5EF00B672AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "russian-robotics.NowPlayingWallpaperTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NowPlayingWallpaper.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NowPlayingWallpaper";
+			};
+			name = Release;
+		};
+		08E7C52A2F06E5EF00B672AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "russian-robotics.NowPlayingWallpaperUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = NowPlayingWallpaper;
+			};
+			name = Debug;
+		};
+		08E7C52B2F06E5EF00B672AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "russian-robotics.NowPlayingWallpaperUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = NowPlayingWallpaper;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		08E7C4FD2F06E5EE00B672AA /* Build configuration list for PBXProject "NowPlayingWallpaper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08E7C5212F06E5EF00B672AA /* Debug */,
+				08E7C5222F06E5EF00B672AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08E7C5232F06E5EF00B672AA /* Build configuration list for PBXNativeTarget "NowPlayingWallpaper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08E7C5242F06E5EF00B672AA /* Debug */,
+				08E7C5252F06E5EF00B672AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08E7C5262F06E5EF00B672AA /* Build configuration list for PBXNativeTarget "NowPlayingWallpaperTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08E7C5272F06E5EF00B672AA /* Debug */,
+				08E7C5282F06E5EF00B672AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08E7C5292F06E5EF00B672AA /* Build configuration list for PBXNativeTarget "NowPlayingWallpaperUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08E7C52A2F06E5EF00B672AA /* Debug */,
+				08E7C52B2F06E5EF00B672AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08E7C4FA2F06E5EE00B672AA /* Project object */;
+}

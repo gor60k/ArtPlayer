@@ -1,0 +1,39 @@
+AlbumArtWallpaper/
+│
+├─ AlbumArtWallpaperApp.swift
+│
+├─ AppDelegate/
+│  └─ AppDelegate.swift
+│
+├─ MenuBar/
+│  ├─ MenuBarController.swift
+│  └─ MenuActions.swift
+│
+├─ Players/
+│  ├─ PlayerType.swift
+│  ├─ SpotifyPlayer.swift
+│  └─ AppleMusicPlayer.swift
+│
+├─ AppleScript/
+│  ├─ AppleScriptRunner.swift
+│  └─ Scripts.swift
+│
+├─ Wallpaper/
+│  └─ WallpaperManager.swift
+│
+├─ Network/
+│  └─ ImageDownloader.swift
+│
+├─ Models/
+│  └─ TrackArtwork.swift
+│
+├─ Utils/
+│  ├─ Logger.swift
+│  └─ Constants.swift
+│
+├─ Resources/
+│  ├─ Assets.xcassets
+│  └─ Info.plist
+│
+└─ Preview Content/
+   └─ Preview Assets.xcassets

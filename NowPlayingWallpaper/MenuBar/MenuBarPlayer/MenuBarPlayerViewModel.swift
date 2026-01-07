@@ -16,12 +16,11 @@ final class MenuBarPlayerViewModel: ObservableObject {
 
     init() {
         setupBindings()
-        // Начальное обновление при запуске
         Task { await updateStatus() }
     }
 
+    // MARK: - функция для сетапа привязки действий плеера
     private func setupBindings() {
-        // Подписываемся на уведомление "TrackChanged", которое шлет PlayerObserver или MenuActions
         NotificationCenter.default.publisher(for: NSNotification.Name("TrackChanged"))
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -30,17 +29,16 @@ final class MenuBarPlayerViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    // MARK: - функция обновления статуса трека в плеере
     func updateStatus() async {
         guard let player = actions.currentPlayer else { return }
         
-        // Получаем инфо
         if let info = await player.fetchCurrentTrackInfo() {
             self.trackTitle = info.title
             self.artistName = info.artist
             self.isPlaying = info.isPlaying
         }
-        
-        // Получаем обложку
+    
         self.artwork = await player.fetchCurrentTrackArtwork()
     }
 }

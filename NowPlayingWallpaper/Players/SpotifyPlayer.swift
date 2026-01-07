@@ -4,6 +4,7 @@ import AppKit
 final class SpotifyPlayer: MusicPlayer {
     let name = "Spotify"
     
+    // MARK: - скрипт для подключения к плееру
     private let AppleScript = """
     if application "Spotify" is running then
         tell application id "com.spotify.client"
@@ -20,6 +21,7 @@ final class SpotifyPlayer: MusicPlayer {
     end if
     """
     
+    // MARK: - функция для получения информации о треке
     func fetchCurrentTrackInfo() async -> TrackInfo? {
         let scriptSource = """
         if application "Spotify" is running then
@@ -40,6 +42,7 @@ final class SpotifyPlayer: MusicPlayer {
         return TrackInfo(title: track, artist: artist, isPlaying: isPlaying)
     }
     
+    // MARK: - функция для получения обложки трека
     func fetchCurrentTrackArtwork() async -> NSImage? {
         let url = await fetchArtworkURL()
         guard let url = url else { return nil }
@@ -53,6 +56,7 @@ final class SpotifyPlayer: MusicPlayer {
         }
     }
     
+    // MARK: - функция для получения урла обложки (спотик отдает только путь до обложки)
     private func fetchArtworkURL() async -> URL? {
         return await withCheckedContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -72,6 +76,7 @@ final class SpotifyPlayer: MusicPlayer {
         }
     }
     
+    // MARK: - функция для использования эппловского скрипта
     private func executeAppleScript(_ source: String) -> String {
         var error: NSDictionary?
         

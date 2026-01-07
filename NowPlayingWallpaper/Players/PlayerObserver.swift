@@ -3,7 +3,6 @@ import Foundation
 final class PlayerObserver {
     private var notificationCenter = DistributedNotificationCenter.default()
     
-    // Замыкание для обратной связи с MenuActions
     var onTrackChange: (() -> Void)?
     
     init() {
@@ -24,9 +23,7 @@ final class PlayerObserver {
     }
     
     private func handleNotification() {
-        // 1. Уведомляем локально через замыкание (для обоев)
         onTrackChange?()
-        // 2. Рассылаем глобальный сигнал (для ViewModel)
         NotificationCenter.default.post(name: NSNotification.Name("TrackChanged"), object: nil)
     }
 }

@@ -62,13 +62,14 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         statusItem.menu = menu
     }
     
-    
+    // MARK: - функция для преждевременного открытия меню
     func menuWillOpen(_ menu: NSMenu) {
         Task {
             await MenuBarPlayerViewModel.shared.updateStatus()
         }
     }
     
+    // MARK: - для более удобного добавления итемов меню
     private func addItems(_ options: [MenuRepresentable], to menu: NSMenu) {
         for option in options {
             let item = NSMenuItem(title: option.title, action: option.action, keyEquivalent: option.keyEquivalent)

@@ -4,6 +4,7 @@ import AppKit
 final class AppleMusicPlayer: MusicPlayer {
     let name = "Music"
     
+    // MARK: - скрипт для подключения к плееру
     private let AppleScript = """
     if application "Music" is running then
         tell application "Music"
@@ -22,6 +23,7 @@ final class AppleMusicPlayer: MusicPlayer {
     return ""
     """
     
+    // MARK: - функция для получения информации о треке
     func fetchCurrentTrackInfo() async -> TrackInfo? {
         let scriptSource = """
         if application "Music" is running then
@@ -42,6 +44,7 @@ final class AppleMusicPlayer: MusicPlayer {
         return TrackInfo(title: track, artist: artist, isPlaying: isPlaying)
     }
     
+    // MARK: - функция для получения обложки трека
     func fetchCurrentTrackArtwork() async -> NSImage? {
         await withCheckedContinuation { continuation in
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -61,6 +64,7 @@ final class AppleMusicPlayer: MusicPlayer {
         }
     }
     
+    // MARK: - функция для использования эппловского скрипта
     private func executeAppleScript(_ source: String) -> Data? {
         var error: NSDictionary?
         

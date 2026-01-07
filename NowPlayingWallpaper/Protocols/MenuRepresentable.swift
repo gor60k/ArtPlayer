@@ -7,7 +7,6 @@ protocol MenuRepresentable {
     var tag: Int { get }
 }
 
-// Стандартные реализации, чтобы не переписывать их в каждом Enum
 extension MenuRepresentable {
     var keyEquivalent: String { "" }
     var tag: Int { 0 }

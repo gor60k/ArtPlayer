@@ -7,7 +7,6 @@ final class MenuBarPlayer: NSView {
         private var cancellables = Set<AnyCancellable>()
     private let symbolConfig = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
 
-    // UI Elements
     private let artworkView = NSImageView()
     private let trackLabel = NSTextField(labelWithString: "")
     private let artistLabel = NSTextField(labelWithString: "")
@@ -25,40 +24,35 @@ final class MenuBarPlayer: NSView {
 
     required init?(coder: NSCoder) { fatalError() }
 
+    // MARK: - функция для связи вьюва и интерфейса
     private func bindViewModel() {
-        // Привязываем текст трека
         viewModel.$trackTitle
             .receive(on: RunLoop.main)
             .assign(to: \.stringValue, on: trackLabel)
             .store(in: &cancellables)
-
-        // Привязываем артиста
+        
         viewModel.$artistName
             .receive(on: RunLoop.main)
             .assign(to: \.stringValue, on: artistLabel)
             .store(in: &cancellables)
 
-        // Привязываем иконку Play/Pause
         viewModel.$isPlaying
             .receive(on: RunLoop.main)
             .sink { [weak self] isPlaying in
                 guard let self = self else { return }
                 let iconName = isPlaying ? "pause.fill" : "play.fill"
                 
-                // Исправление 1: Используем базовое изображение и применяем конфиг отдельно
                 if let image = NSImage(systemSymbolName: iconName, accessibilityDescription: nil) {
                     self.playPauseButton.image = image.withSymbolConfiguration(self.symbolConfig)
                 }
             }
             .store(in: &cancellables)
 
-        // Привязываем обложку и градиент
         viewModel.$artwork
             .receive(on: RunLoop.main)
             .sink { [weak self] image in
                 guard let self = self else { return }
                 
-                // Исправление 2: Добавлен обязательный параметр accessibilityDescription
                 let defaultImage = NSImage(systemSymbolName: "music.note", accessibilityDescription: nil)
                 self.artworkView.image = image ?? defaultImage
                 
@@ -67,6 +61,7 @@ final class MenuBarPlayer: NSView {
             .store(in: &cancellables)
     }
 
+    // MARK: - функция для сетапа бэка плеера
     private func setupBackground() {
         self.wantsLayer = true
         visualEffectView.frame = self.bounds
@@ -88,6 +83,7 @@ final class MenuBarPlayer: NSView {
         addSubview(gradientView)
     }
 
+    // MARK: - функция для сетапа разметки плеера
     private func setupLayout() {
         // Конфигурация элементов
         artworkView.wantsLayer = true
@@ -109,7 +105,6 @@ final class MenuBarPlayer: NSView {
         playPauseButton.target = MenuActions.shared
         playPauseButton.action = #selector(MenuActions.togglePlayPause)
 
-        // Сборка стеков
         let controls = NSStackView(views: [prevBtn, playPauseButton, nextBtn])
         controls.spacing = 15
         
@@ -145,6 +140,7 @@ final class MenuBarPlayer: NSView {
         ])
     }
 
+    // MARK: - функция обновления градиента
     private func updateGradient(with image: NSImage?) {
         let colors = image?.extractColors() ?? [NSColor.clear.cgColor, NSColor.clear.cgColor]
         CATransaction.begin()

@@ -1,17 +1,15 @@
 import Cocoa
 
-enum WallpaperLayout: Int {
-    case fill = 0
-    case fit = 1
-    case stretch = 2
-    case center = 3
+enum LayoutType: Int {
+    case fit = 0
+    case stretch = 1
+    case center = 2
 
     var scalingMode: NSImageScaling {
         switch self {
         case .fit: return .scaleProportionallyDown
-        case .stretch: return .scaleAxesIndependently
         case .center: return .scaleNone
-        default: return .scaleProportionallyUpOrDown
+        default: return .scaleAxesIndependently
         }
     }
 }

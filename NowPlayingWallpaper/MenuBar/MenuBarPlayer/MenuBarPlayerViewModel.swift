@@ -5,6 +5,7 @@ import Combine
 @MainActor
 final class MenuBarPlayerViewModel: ObservableObject {
     static let shared = MenuBarPlayerViewModel()
+    private let playerObserver = PlayerObserver()
     
     @Published var trackTitle: String = "Загрузка..."
     @Published var artistName: String = "-"
@@ -33,12 +34,12 @@ final class MenuBarPlayerViewModel: ObservableObject {
     func updateStatus() async {
         guard let player = actions.currentPlayer else { return }
         
-        if let info = await player.fetchCurrentTrackInfo() {
-            self.trackTitle = info.title
-            self.artistName = info.artist
-            self.isPlaying = info.isPlaying
-        }
-    
-        self.artwork = await player.fetchCurrentTrackArtwork()
+        let info = await player.fetchCurrentTrackInfo()
+        let newArtwork = await player.fetchCurrentTrackArtwork()
+        
+        self.trackTitle = info?.title ?? "Загрузка..."
+        self.artistName = info?.artist ?? "-"
+        self.isPlaying = info?.isPlaying ?? false
+        self.artwork = newArtwork
     }
 }

@@ -49,7 +49,7 @@ final class MenuActions: NSObject {
             NSAppleScript(source: script)?.executeAndReturnError(nil)
             
             if notify {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
                     NotificationCenter.default.post(name: NSNotification.Name("TrackChanged"), object: nil)
                 }
             }

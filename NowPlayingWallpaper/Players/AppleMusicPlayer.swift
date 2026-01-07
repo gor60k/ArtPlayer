@@ -9,8 +9,8 @@ final class AppleMusicPlayer: MusicPlayer {
     if application "Music" is running then
         tell application "Music"
             try
-                if player state is playing then
-                    set ardData to data pf artwork 1 of current track
+                if exist (artwork 1 of current track) then
+                    set ardData to data of artwork 1 of current track
                     return artData
                 end if
             on error

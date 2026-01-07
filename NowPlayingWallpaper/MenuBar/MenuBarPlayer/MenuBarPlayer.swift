@@ -4,7 +4,7 @@ import Combine
 
 final class MenuBarPlayer: NSView {
     private let viewModel = MenuBarPlayerViewModel.shared
-        private var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
     private let symbolConfig = NSImage.SymbolConfiguration(pointSize: 14, weight: .medium)
 
     private let artworkView = NSImageView()
@@ -26,30 +26,27 @@ final class MenuBarPlayer: NSView {
 
     // MARK: - функция для связи вьюва и интерфейса
     private func bindViewModel() {
+        cancellables.removeAll()
+        
         viewModel.$trackTitle
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .assign(to: \.stringValue, on: trackLabel)
             .store(in: &cancellables)
         
         viewModel.$artistName
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .assign(to: \.stringValue, on: artistLabel)
             .store(in: &cancellables)
 
         viewModel.$isPlaying
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] isPlaying in
-                guard let self = self else { return }
-                let iconName = isPlaying ? "pause.fill" : "play.fill"
-                
-                if let image = NSImage(systemSymbolName: iconName, accessibilityDescription: nil) {
-                    self.playPauseButton.image = image.withSymbolConfiguration(self.symbolConfig)
-                }
+                self?.updatePlayPauseImage(isPlaying: isPlaying)
             }
             .store(in: &cancellables)
 
         viewModel.$artwork
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] image in
                 guard let self = self else { return }
                 
@@ -57,18 +54,43 @@ final class MenuBarPlayer: NSView {
                 self.artworkView.image = image ?? defaultImage
                 
                 self.updateGradient(with: image)
+                
+                self.artworkView.needsDisplay = true
+                self.needsDisplay = true
             }
             .store(in: &cancellables)
     }
 
+    private let bottomSeparator = NSView()
+    
+    private func updatePlayPauseImage(isPlaying: Bool) {
+        let iconName = isPlaying ? "pause.fill" : "play.fill"
+        
+        guard let newImage = NSImage(systemSymbolName: iconName, accessibilityDescription: nil)?
+            .withSymbolConfiguration(symbolConfig) else { return }
+        
+        let transition = CATransition()
+        transition.duration = 0.2
+        transition.type = .fade
+        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        
+        playPauseButton.layer?.add(transition, forKey: kCATransition)
+        playPauseButton.image = newImage
+    }
+    
     // MARK: - функция для сетапа бэка плеера
     private func setupBackground() {
         self.wantsLayer = true
+    
         visualEffectView.frame = self.bounds
         visualEffectView.material = .menu
         visualEffectView.blendingMode = .behindWindow
         visualEffectView.state = .active
         addSubview(visualEffectView)
+        
+        bottomSeparator.wantsLayer = true
+        bottomSeparator.layer?.backgroundColor = NSColor.separatorColor.cgColor
+        addSubview(bottomSeparator)
 
         let gradientView = NSView(frame: self.bounds)
         gradientView.wantsLayer = true
@@ -85,12 +107,11 @@ final class MenuBarPlayer: NSView {
 
     // MARK: - функция для сетапа разметки плеера
     private func setupLayout() {
-        // Конфигурация элементов
         artworkView.wantsLayer = true
         artworkView.layer?.cornerRadius = 8
         
         trackLabel.font = .systemFont(ofSize: 13, weight: .bold)
-        trackLabel.lineBreakMode = .byTruncatingTail // Обрезать конец, если текст длинный
+        trackLabel.lineBreakMode = .byTruncatingTail
         trackLabel.usesSingleLineMode = true
         
         artistLabel.font = .systemFont(ofSize: 11)
@@ -102,9 +123,11 @@ final class MenuBarPlayer: NSView {
         let nextBtn = NSButton.createSymbol(name: "forward.fill", target: MenuActions.shared, action: #selector(MenuActions.nextTrack), config: symbolConfig)
         
         playPauseButton.isBordered = false
+        playPauseButton.wantsLayer = true
         playPauseButton.target = MenuActions.shared
         playPauseButton.action = #selector(MenuActions.togglePlayPause)
-
+        playPauseButton.title = ""
+        
         let controls = NSStackView(views: [prevBtn, playPauseButton, nextBtn])
         controls.spacing = 15
         
@@ -118,12 +141,14 @@ final class MenuBarPlayer: NSView {
 
         mainStack.addArrangedSubview(artworkView)
         mainStack.addArrangedSubview(info)
-        mainStack.edgeInsets = NSEdgeInsets(top: 10, left: 14, bottom: 10, right: 14)
-        mainStack.spacing = 12
+        mainStack.edgeInsets = NSEdgeInsets(top: 14, left: 24, bottom: 14, right: 24)
+        mainStack.spacing = 15
         mainStack.alignment = .centerY
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(mainStack)
+        
+        bottomSeparator.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: 300),
@@ -132,11 +157,18 @@ final class MenuBarPlayer: NSView {
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: trailingAnchor),
             mainStack.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            bottomSeparator.leadingAnchor.constraint(equalTo: leadingAnchor),
+            bottomSeparator.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomSeparator.bottomAnchor.constraint(equalTo: bottomAnchor),
+            bottomSeparator.heightAnchor.constraint(equalToConstant: 1),
                 
             artworkView.widthAnchor.constraint(equalToConstant: 60),
             artworkView.heightAnchor.constraint(equalToConstant: 60),
-                
-            info.trailingAnchor.constraint(equalTo: mainStack.trailingAnchor, constant: -14)
+            
+            prevBtn.widthAnchor.constraint(equalToConstant: 24),
+            playPauseButton.widthAnchor.constraint(equalToConstant: 24),
+            nextBtn.widthAnchor.constraint(equalToConstant: 24),
         ])
     }
 
@@ -147,5 +179,7 @@ final class MenuBarPlayer: NSView {
         CATransaction.setAnimationDuration(1.2)
         gradientLayer.colors = colors
         CATransaction.commit()
+        
+        self.gradientLayer.setNeedsDisplay()
     }
 }

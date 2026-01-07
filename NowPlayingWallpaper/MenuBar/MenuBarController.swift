@@ -1,7 +1,9 @@
 import Cocoa
+import Combine
 
 final class MenuBarController: NSObject, NSMenuDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    private var cancellables = Set<AnyCancellable>()
     
     private lazy var playerView: MenuBarPlayer = {
         let view = MenuBarPlayer()
@@ -13,6 +15,23 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         super.init()
         setupMenuButton()
         setupMenu()
+        setupObserver()
+    }
+    
+    private func setupObserver() {
+        MenuBarPlayerViewModel.shared.$artwork
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.statusItem.menu?.update()
+            }
+            .store(in: &cancellables)
+        
+        MenuBarPlayerViewModel.shared.$trackTitle
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.statusItem.menu?.update()
+            }
+            .store(in: &cancellables)
     }
     
     private func setupMenuButton() {
@@ -27,8 +46,6 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         let playerItem = NSMenuItem()
         playerItem.view = playerView
         menu.addItem(playerItem)
-        
-        menu.addItem(.separator())
         
         let playerSubmenu = NSMenu()
         addItems(PlayerType.allCases, to: playerSubmenu)

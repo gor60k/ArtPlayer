@@ -4,109 +4,38 @@ import Combine
 final class MenuBarController: NSObject, NSMenuDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private var cancellables = Set<AnyCancellable>()
+    private let menuBuilder = MenuBuilder()
     
-    private lazy var playerView: MenuBarPlayer = {
-        let view = MenuBarPlayer()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private lazy var playerView: MenuBarPlayer = MenuBarPlayer()
     
     override init() {
         super.init()
-        setupMenuButton()
-        setupMenu()
+        setupStatusItem()
         setupObserver()
     }
     
-    private func setupObserver() {
-        MenuBarPlayerViewModel.shared.$artwork
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.statusItem.menu?.update()
-            }
-            .store(in: &cancellables)
-        
-        MenuBarPlayerViewModel.shared.$trackTitle
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.statusItem.menu?.update()
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func setupMenuButton() {
+    private func setupStatusItem() {
         statusItem.button?.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: "Now Playing")
+        refreshMenu()
     }
     
-    // MARK: - функция для сетапа меню в строке меню
-    private func setupMenu() {
-        let menu = NSMenu()
+    
+    private func refreshMenu() {
+        let menu = menuBuilder.build(with: playerView)
         menu.delegate = self
-        
-        let playerItem = NSMenuItem()
-        playerItem.view = playerView
-        menu.addItem(playerItem)
-        
-        let playerSubmenu = NSMenu()
-        addItems(PlayerType.allCases, to: playerSubmenu)
-        let playerSelector = NSMenuItem(title: "Выбрать плеер", action: nil, keyEquivalent: "")
-        playerSelector.submenu = playerSubmenu
-        menu.addItem(playerSelector)
-        
-        let wallpaperToggleItem = NSMenuItem(
-            title: "Отображать как обои",
-            action: #selector(MenuActions.toggleWallpaper(_:)),
-            keyEquivalent: ""
-        )
-        wallpaperToggleItem.target = MenuActions.shared
-        wallpaperToggleItem.state = SettingsService.shared.isWallpaperEnabled ? .on : .off
-        menu.addItem(wallpaperToggleItem)
-        
-        let settingsSubmenu = NSMenu()
-        addItems(MenuType.allCases, to: settingsSubmenu)
-        
-        let settingsItem = NSMenuItem(title: "Настройки обоев", action: nil, keyEquivalent: "")
-        settingsItem.submenu = settingsSubmenu
-        menu.addItem(settingsItem)
-        
-        let supportSubmenu = NSMenu()
-        addItems(SupportType.allCases, to: supportSubmenu)
-        
-        let supportItem = NSMenuItem(title: "Поддержать автора", action: nil, keyEquivalent: "")
-        supportItem.submenu = supportSubmenu
-        menu.addItem(supportItem)
-        
-        menu.addItem(.separator())
-        
-        menu.addItem(
-            withTitle: "Quit",
-            action: #selector(NSApplication.terminate),
-            keyEquivalent: "q"
-        )
-
         statusItem.menu = menu
     }
     
-    // MARK: - функция для преждевременного открытия меню
-    func menuWillOpen(_ menu: NSMenu) {
-        Task {
-            await MenuBarPlayerViewModel.shared.updateStatus()
-        }
-    }
-    
-    // MARK: - для более удобного добавления итемов меню
-    private func addItems(_ options: [MenuRepresentable], to menu: NSMenu) {
-        for option in options {
-            let item = NSMenuItem(title: option.title, action: option.action, keyEquivalent: option.keyEquivalent)
-            
-            item.representedObject = option
-            
-            item.target = MenuActions.shared
-            item.tag = option.tag
-            if option.title == SettingsService.shared.selectedPlayer {
-                item.state = .on
+    private func setupObserver() {
+        let artworkRedraw = MenuBarPlayerViewModel.shared.$artwork.map { _ in () }
+        let titleRedraw = MenuBarPlayerViewModel.shared.$trackTitle.map { _ in () }
+        
+        artworkRedraw
+            .merge(with: titleRedraw)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.statusItem.menu?.update()
             }
-            menu.addItem(item)
-        }
+            .store(in: &cancellables)
     }
 }

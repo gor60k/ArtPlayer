@@ -5,8 +5,10 @@ enum MenuType: String, CaseIterable, MenuRepresentable {
     case screenSize = "По размеру экрана"
     case center     = "По центру"
     
+    // MARK: - поля из протокола MenuRepresentable
     var title: String { self.rawValue }
-    
+    var action: Selector { #selector(MenuActions.changeLayout(_:)) }
+    // MARK: - необязательные поля протокола
     var tag: Int {
         switch self {
         case .fullScreen: return 0
@@ -14,6 +16,4 @@ enum MenuType: String, CaseIterable, MenuRepresentable {
         case .center:     return 2
         }
     }
-    
-    var action: Selector { #selector(MenuActions.changeLayout(_:)) }
 }

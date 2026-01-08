@@ -64,9 +64,17 @@ final class MenuBarController: NSObject, NSMenuDelegate {
         
         let settingsSubmenu = NSMenu()
         addItems(MenuType.allCases, to: settingsSubmenu)
+        
         let settingsItem = NSMenuItem(title: "Настройки обоев", action: nil, keyEquivalent: "")
         settingsItem.submenu = settingsSubmenu
         menu.addItem(settingsItem)
+        
+        let supportSubmenu = NSMenu()
+        addItems(SupportType.allCases, to: supportSubmenu)
+        
+        let supportItem = NSMenuItem(title: "Поддержать автора", action: nil, keyEquivalent: "")
+        supportItem.submenu = supportSubmenu
+        menu.addItem(supportItem)
         
         menu.addItem(.separator())
         
@@ -90,6 +98,9 @@ final class MenuBarController: NSObject, NSMenuDelegate {
     private func addItems(_ options: [MenuRepresentable], to menu: NSMenu) {
         for option in options {
             let item = NSMenuItem(title: option.title, action: option.action, keyEquivalent: option.keyEquivalent)
+            
+            item.representedObject = option
+            
             item.target = MenuActions.shared
             item.tag = option.tag
             if option.title == SettingsService.shared.selectedPlayer {

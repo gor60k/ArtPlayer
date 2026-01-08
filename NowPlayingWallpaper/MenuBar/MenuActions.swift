@@ -88,6 +88,14 @@ final class MenuActions: NSObject {
         wallpaperManager.changeScalingMode(to: newLayout.scalingMode)
     }
     
+    @objc func openSupportURL(_ sender: NSMenuItem) {
+        print("пенисы")
+        guard let item = sender.representedObject as? SupportType,
+              let url = item.url else { return }
+        
+        NSWorkspace.shared.open(url)
+    }
+    
     private func updateMenuSelection(_ item: NSMenuItem) {
         item.menu?.items.forEach { $0.state = .off }
         item.state = .on

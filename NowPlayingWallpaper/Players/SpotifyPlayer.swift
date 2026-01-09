@@ -2,38 +2,27 @@ import Foundation
 import AppKit
 
 final class SpotifyPlayer: MusicPlayer {
-    let name = "Spotify"
+    let appleScriptID = "com.spotify.client"
     
-    // MARK: - скрипт для подключения к плееру
-    private let AppleScript = """
-    if application "Spotify" is running then
-        tell application id "com.spotify.client"
-            try
-                set theURL to (get artwork url of current track)
-                return theURL as string
-            on error
-                return ""
-            end try
-        end tell
-    else
-        tell application id "com.spotify.client" to launch
-        return ""
-    end if
-    """
+    func playPause() { excuteCommand("playpause") }
+    func nextTrack() { excuteCommand("next track") }
+    func previousTrack() { excuteCommand("previous track") }
     
     // MARK: - функция для получения информации о треке
     func fetchCurrentTrackInfo() async -> TrackInfo? {
         let scriptSource = """
-        if application "Spotify" is running then
-            tell application "Spotify" to return {name of current track, artist of current track, player state as string}
+        if application "\(appleScriptID)" is running then
+            tell application "\(appleScriptID)" to return {name of current track, artist of current track, player state as string}
         end if
         return nil
         """
             
-        let script = NSAppleScript(source: scriptSource)
         var error: NSDictionary?
-        guard let result = script?.executeAndReturnError(&error) else { return nil }
-            
+        guard let script = NSAppleScript(source: scriptSource) else { return nil }
+        let result = script.executeAndReturnError(&error)
+        if error != nil { return nil }
+        guard result.numberOfItems > 0 else { return nil }
+                
         let track = result.atIndex(1)?.stringValue ?? "Неизвестно"
         let artist = result.atIndex(2)?.stringValue ?? "-"
         let state = result.atIndex(3)?.stringValue ?? "paused"
@@ -44,8 +33,7 @@ final class SpotifyPlayer: MusicPlayer {
     
     // MARK: - функция для получения обложки трека
     func fetchCurrentTrackArtwork() async -> NSImage? {
-        let url = await fetchArtworkURL()
-        guard let url = url else { return nil }
+        guard let url = await fetchArtworkURL() else { return nil }
         
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
@@ -58,32 +46,32 @@ final class SpotifyPlayer: MusicPlayer {
     
     // MARK: - функция для получения урла обложки (спотик отдает только путь до обложки)
     private func fetchArtworkURL() async -> URL? {
+        let scriptSource = """
+        if application "\(appleScriptID)" is running then
+            tell application id "\(appleScriptID)"
+                try
+                    return (get artwork url of current track) as string
+                on error
+                    return ""
+                end try
+            end tell
+        else
+            return ""
+        end if
+        """
+        
         return await withCheckedContinuation { continuation in
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self  = self else {
-                    continuation.resume(returning: nil)
-                    return
-                }
+            DispatchQueue.global(qos: .userInitiated).async {
+                var error: NSDictionary?
+                let script = NSAppleScript(source: scriptSource)!
+                let urlString = script.executeAndReturnError(&error).stringValue ?? ""
                 
-                let artworkURLString = self.executeAppleScript(self.AppleScript)
-                
-                if !artworkURLString.isEmpty, let url = URL(string: artworkURLString) {
+                if let url = URL(string: urlString) {
                     continuation.resume(returning: url)
                 } else {
                     continuation.resume(returning: nil)
                 }
             }
         }
-    }
-    
-    // MARK: - функция для использования эппловского скрипта
-    private func executeAppleScript(_ source: String) -> String {
-        var error: NSDictionary?
-        
-        if let script = NSAppleScript(source: source) {
-            let descriptor = script.executeAndReturnError(&error)
-            return descriptor.stringValue ?? ""
-        }
-        return ""
     }
 }

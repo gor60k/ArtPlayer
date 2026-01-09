@@ -23,62 +23,36 @@ final class MenuActions: NSObject {
             guard let self = self else { return }
             
             if self.settings.isWallpaperEnabled {
-                self.updateWallpaper()
+                self.wallpaperManager.update(with: self.currentPlayer)
             }
         }
     }
     
     // MARK: - действия контроллеров плеера
     @objc func togglePlayPause() {
-        execute("playpause", notify: true)
+        currentPlayer?.playPause()
     }
     
     @objc func nextTrack() {
-        execute("next track", notify: true)
+        currentPlayer?.nextTrack()
     }
     
     @objc func prevTrack() {
-        execute("previous track", notify: true)
-    }
-    
-    private func execute(_ action: String, notify: Bool = false) {
-        let app = settings.selectedPlayer == "Apple Music" ? "Music" : "Spotify"
-        let script = "if application \"\(app)\" is running then tell application \"\(app)\" to \(action)"
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            NSAppleScript(source: script)?.executeAndReturnError(nil)
-            
-            if notify {
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
-                    NotificationCenter.default.post(name: NSNotification.Name("TrackChanged"), object: nil)
-                }
-            }
-        }
-    }
-
-    func updateWallpaper() {
-        guard settings.isWallpaperEnabled else { return }
-        Task {
-            if let image = await currentPlayer?.fetchCurrentTrackArtwork() {
-                await MainActor.run {
-                    self.wallpaperManager.setWallpaper(from: image, scalingMode: self.settings.layout.scalingMode)
-                }
-            }
-        }
+        currentPlayer?.previousTrack()
     }
     
     // MARK: - действия пунктов меню
     @objc func toggleWallpaper(_ sender: NSMenuItem) {
         sender.state = (sender.state == .on) ? .off : .on
         settings.isWallpaperEnabled = (sender.state == .on)
-        if settings.isWallpaperEnabled { updateWallpaper() }
+        if settings.isWallpaperEnabled { wallpaperManager.update(with: currentPlayer) }
     }
     
     @objc func selectPlayer(_ sender: NSMenuItem) {
         updateMenuSelection(sender)
         settings.selectedPlayer = sender.title
         NotificationCenter.default.post(name: NSNotification.Name("TrackChanged"), object: nil)
-        updateWallpaper()
+        wallpaperManager.update(with: currentPlayer)
     }
     
     @objc func changeLayout(_ sender: NSMenuItem) {

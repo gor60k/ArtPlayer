@@ -1,66 +1,47 @@
 import AppKit
 
 final class WallpaperManager {
+    static let shared = WallpaperManager()
     
-    // MARK: - приватные переменные
-    private var fileManager = FileManager.default
+    private let fileService = FileService()
     private var lastImage: NSImage?
     private let filePrefix = "wallpaper_"
-    // MARK: - публичные методы
-    func setWallpaper(from image: NSImage, scalingMode: NSImageScaling = .scaleProportionallyUpOrDown) {
-        self.lastImage = image
-        self.apply(image: image, scalingMode: scalingMode)
+    private let settings = SettingsService.shared
+    
+    // MARK: - функция обновления информации о плеере
+    func update(with player: MusicPlayer?) {
+        guard settings.isWallpaperEnabled else { return }
+        
+        Task {
+            if let image = await player?.fetchCurrentTrackArtwork() {
+                self.setWallpaper(from: image, scalingMode: self.settings.layout.scalingMode)
+            }
+        }
     }
     
+    // MARK: - функция ставит конвертированное изображение на обои
+    @MainActor
+    func setWallpaper(from image: NSImage, scalingMode: NSImageScaling = .scaleProportionallyUpOrDown) {
+        self.lastImage = image
+        
+        guard let data = image.jpegData else { return }
+        
+        guard let url  = fileService.saveToTemporaryFile(data: data, prefix: filePrefix, extenstion: "jpg") else { return }
+        
+        updateDesktopImage(url: url, scalingMode: scalingMode)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.fileService.cleanupFiles(matching: self.filePrefix, keepingURL: url)
+        }
+    }
+    
+    // MARK: - функция изменяет скейл мод
+    @MainActor
     func changeScalingMode(to mode: NSImageScaling) {
         guard let image = lastImage else { return }
-        self.apply(image: image, scalingMode: mode)
+        setWallpaper(from: image, scalingMode: mode)
     }
-    // MARK: - функция, которая применяет обои
-    private func apply(image: NSImage, scalingMode: NSImageScaling) {
-        guard let pngData = converToPNG(image: image) else { return }
-        
-        cleanupOldWallpapers()
-        
-        guard let tempURL = saveToTemporaryFile(data: pngData) else { return }
-        
-        updateDesktopImage(url: tempURL, scalingMode: scalingMode)
-    }
-    // MARK: - функция для конвертации изображений
-    private func converToPNG(image: NSImage) -> Data? {
-        guard let tiffData = image.tiffRepresentation,
-              let bitmap = NSBitmapImageRep(data: tiffData) else {
-            return nil
-        }
-        return bitmap.representation(using: .png, properties: [:])
-    }
-    // MARK: - функция для очистки старых обоев
-    private func cleanupOldWallpapers() {
-        let cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        
-        do {
-            let files = try fileManager.contentsOfDirectory(at: cacheURL, includingPropertiesForKeys: nil)
-            for file in files where file.lastPathComponent.hasPrefix(filePrefix) {
-                try? fileManager.removeItem(at: file)
-            }
-        } catch {
-            print("Ошибка очистки старых обоев: \(error)")
-        }
-    }
-    // MARK: - функция для сохранения во временный файл
-    private func saveToTemporaryFile(data: Data) -> URL? {
-        let cacheURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
-        let fileName = "\(filePrefix)\(UUID().uuidString).png"
-        let fileURL = cacheURL.appendingPathComponent(fileName)
-        
-        do {
-            try data.write(to: fileURL)
-            return fileURL
-        } catch {
-            print("Ошибка сохранения: \(error)")
-            return nil
-        }
-    }
+    
     // MARK: - функция для обновления обоев
     private func updateDesktopImage(url: URL, scalingMode: NSImageScaling) {
         guard let screen = NSScreen.main else { return }
@@ -70,8 +51,6 @@ final class WallpaperManager {
             .allowClipping: true
         ]
         
-        DispatchQueue.main.async {
-            try? NSWorkspace.shared.setDesktopImageURL(url, for: screen, options: options)
-        }
+        try? NSWorkspace.shared.setDesktopImageURL(url, for: screen, options: options)
     }
 }

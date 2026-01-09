@@ -38,15 +38,16 @@ AlbumArtWallpaper/
 └─ Preview Content/
    └─ Preview Assets.xcassets
    
-   
-            if application id "com.spotify.client" is running then
-                tell application id "com.spotify.client"
-                    try
-                        set theURL to (get artwork url of current track)
-                        return theURL as string
-                    on error
-                        return ""
-                    end try
-                end tell
-            end if
-            return ""
+       if application "Spotify" is running then
+        tell application id "com.spotify.client"
+            try
+                set theURL to (get artwork url of current track)
+                return theURL as string
+            on error
+                return ""
+            end try
+        end tell
+    else
+        tell application id "com.spotify.client" to launch
+        return ""
+    end if

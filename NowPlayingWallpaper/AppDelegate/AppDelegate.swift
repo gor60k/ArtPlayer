@@ -9,7 +9,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSApp.setActivationPolicy(.accessory)
         
         _ = SettingsService.shared
-        _ = MenuActions.shared
+        let actions = MenuActions.shared
+        let wallpaper = WallpaperManager.shared
         
         menuBarController = MenuBarController()
             
@@ -17,6 +18,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             menu.restoreAllSelections()
         }
         
-        MenuActions.shared.updateWallpaper()
+        wallpaper.update(with: actions.currentPlayer)
     }
 }

@@ -2,39 +2,26 @@ import Foundation
 import AppKit
 
 final class AppleMusicPlayer: MusicPlayer {
-    let name = "Music"
+    let appleScriptID = "Music"
     
-    // MARK: - скрипт для подключения к плееру
-    private let AppleScript = """
-    if application "Music" is running then
-        tell application "Music"
-            try
-                if exist (artwork 1 of current track) then
-                    set ardData to data of artwork 1 of current track
-                    return artData
-                end if
-            on error
-                return ""
-            end try
-        end tell
-    else
-        tell application "Music" to launch
-    end if
-    return ""
-    """
+    func playPause() { excuteCommand("playpause") }
+    func nextTrack() { excuteCommand("next track") }
+    func previousTrack() { excuteCommand("previous track") }
     
     // MARK: - функция для получения информации о треке
     func fetchCurrentTrackInfo() async -> TrackInfo? {
         let scriptSource = """
-        if application "Music" is running then
-            tell application "Music" to return {name of current track, artist of current track, player state as string}
+        if application "\(appleScriptID)" is running then
+            tell application "\(appleScriptID)" to return {name of current track, artist of current track, player state as string}
         end if
         return nil
         """
             
-        let script = NSAppleScript(source: scriptSource)
         var error: NSDictionary?
-        guard let result = script?.executeAndReturnError(&error) else { return nil }
+        guard let script = NSAppleScript(source: scriptSource) else { return nil }
+        let result = script.executeAndReturnError(&error)
+        if error != nil { return nil }
+        guard result.numberOfItems > 0 else { return nil }
             
         let track = result.atIndex(1)?.stringValue ?? "Неизвестно"
         let artist = result.atIndex(2)?.stringValue ?? "-"
@@ -46,34 +33,39 @@ final class AppleMusicPlayer: MusicPlayer {
     
     // MARK: - функция для получения обложки трека
     func fetchCurrentTrackArtwork() async -> NSImage? {
-        await withCheckedContinuation { continuation in
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self else {
+        let scriptSource = """
+        if application "\(appleScriptID)" is running then
+            tell application "Music"
+                try
+                    if exists (artwork 1 of current track) then
+                        return data of artwork 1 of current track
+                    end if
+                end try
+            end tell
+        end if
+        return nil
+        """
+        
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                var error: NSDictionary?
+                
+                guard let script = NSAppleScript(source: scriptSource) else {
                     continuation.resume(returning: nil)
                     return
                 }
                 
-                guard let data = self.executeAppleScript(self.AppleScript),
-                      let image = NSImage(data: data) else {
-                    continuation.resume(returning: nil)
-                    return
+                let result = script.executeAndReturnError(&error)
+                if error == nil && result.descriptorType != typeNull {
+                    let data = result.data
+                    if !data.isEmpty, let image = NSImage(data: data) {
+                        continuation.resume(returning: image)
+                        return
+                    }
                 }
                 
-                continuation.resume(returning: image)
+                continuation.resume(returning: nil)
             }
         }
-    }
-    
-    // MARK: - функция для использования эппловского скрипта
-    private func executeAppleScript(_ source: String) -> Data? {
-        var error: NSDictionary?
-        
-        guard let script = NSAppleScript(source: source) else {
-            return nil
-        }
-        
-        let descriptor = script.executeAndReturnError(&error)
-        
-        return descriptor.data
     }
 }

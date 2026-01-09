@@ -2,7 +2,7 @@ import AppKit
 extension NSTextField {
     static func createTrackLabel() -> NSTextField {
         let label = NSTextField(labelWithString: "")
-        label.font = .systemFont(ofSize: 12, weight: .bold)
+        label.font = .systemFont(ofSize: 14, weight: .medium)
         label.lineBreakMode = .byTruncatingTail
         label.usesSingleLineMode = true
         label.isEditable = false
@@ -14,7 +14,7 @@ extension NSTextField {
     
     static func createArtistLabel() -> NSTextField {
         let label = NSTextField(labelWithString: "")
-        label.font = .systemFont(ofSize: 10)
+        label.font = .systemFont(ofSize: 12)
         label.textColor = .secondaryLabelColor
         label.lineBreakMode = .byTruncatingTail
         label.usesSingleLineMode = true

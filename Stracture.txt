@@ -6,7 +6,7 @@ AlbumArtWallpaper/
 │  └─ AppDelegate.swift
 │
 ├─ MenuBar/
-│  ├─ MenuBarController.swift
+│  ├─ MenuController.swift
 │  └─ MenuActions.swift
 │
 ├─ Players/

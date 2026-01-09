@@ -5,6 +5,9 @@ extension NSButton {
         let image = NSImage(systemSymbolName: name, accessibilityDescription: nil)?.withSymbolConfiguration(config)
         let btn = NSButton(image: image ?? NSImage(), target: target, action: action)
         btn.isBordered = false
+        btn.title = ""
+        btn.bezelStyle = .regularSquare
+        btn.imagePosition = .imageOnly
         return btn
     }
 }

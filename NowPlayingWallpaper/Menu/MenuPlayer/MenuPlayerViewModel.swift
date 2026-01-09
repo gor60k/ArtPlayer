@@ -3,8 +3,8 @@ import AppKit
 import Combine
 
 @MainActor
-final class MenuBarPlayerViewModel: ObservableObject {
-    static let shared = MenuBarPlayerViewModel()
+final class MenuPlayerViewModel: ObservableObject {
+    static let shared = MenuPlayerViewModel()
     private let playerObserver = PlayerObserver()
     
     @Published var trackTitle: String = "Загрузка..."

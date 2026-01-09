@@ -1,12 +1,12 @@
 import Cocoa
 import Combine
 
-final class MenuBarController: NSObject, NSMenuDelegate {
+final class MenuController: NSObject, NSMenuDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private var cancellables = Set<AnyCancellable>()
     private let menuBuilder = MenuBuilder()
     
-    private lazy var playerView: MenuBarPlayer = MenuBarPlayer()
+    private lazy var playerView: MenuPlayer = MenuPlayer()
     
     override init() {
         super.init()
@@ -27,8 +27,8 @@ final class MenuBarController: NSObject, NSMenuDelegate {
     }
     
     private func setupObserver() {
-        let artworkRedraw = MenuBarPlayerViewModel.shared.$artwork.map { _ in () }
-        let titleRedraw = MenuBarPlayerViewModel.shared.$trackTitle.map { _ in () }
+        let artworkRedraw = MenuPlayerViewModel.shared.$artwork.map { _ in () }
+        let titleRedraw = MenuPlayerViewModel.shared.$trackTitle.map { _ in () }
         
         artworkRedraw
             .merge(with: titleRedraw)

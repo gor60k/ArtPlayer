@@ -44,13 +44,19 @@ final class WallpaperManager {
     
     // MARK: - функция для обновления обоев
     private func updateDesktopImage(url: URL, scalingMode: NSImageScaling) {
-        guard let screen = NSScreen.main else { return }
+        let screens = NSScreen.screens
         
         let options: [NSWorkspace.DesktopImageOptionKey: Any] = [
             .imageScaling: scalingMode.rawValue,
-            .allowClipping: true
+            .allowClipping: true,
         ]
         
-        try? NSWorkspace.shared.setDesktopImageURL(url, for: screen, options: options)
+        for screen in screens {
+            do {
+                try NSWorkspace.shared.setDesktopImageURL(url, for: screen, options: options)
+            } catch {
+                print("Ошибка при установке обоев: \(error)")
+            }
+        }
     }
 }

@@ -9,11 +9,22 @@ final class MenuPlayer: NSView {
     private let buttonConfig = NSImage.SymbolConfiguration(pointSize: 16, weight: .medium)
     
     private let settingsButton = NSButton()
-    
     private let backgroundView = MenuPlayerBackgroundView()
     private let artworkView = NSImageView()
     private let info = MenuPlayerInfoStackView()
     private lazy var controls = MenuPlayerControlsStack(target: MenuActions.shared, playConfig: playConfig, buttonConfig: buttonConfig)
+    
+    private let progressIndicator: NSProgressIndicator = {
+        let bar = NSProgressIndicator()
+        bar.isIndeterminate = false
+        bar.minValue = 0
+        bar.maxValue = 1
+        bar.doubleValue = 0
+        bar.controlSize = .small
+        bar.style = .bar
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        return bar
+    }()
 
     init() {
         super.init(frame: NSRect(x: 0, y: 0, width: 340, height: 140))
@@ -50,10 +61,10 @@ final class MenuPlayer: NSView {
         
         let infoContainer = NSStackView(views: [info, settingsButton])
         
-        let rightContainer = NSStackView(views: [infoContainer, controls, spacer])
+        let rightContainer = NSStackView(views: [infoContainer, controls, progressIndicator])
         rightContainer.orientation = .vertical
         rightContainer.alignment = .leading
-        rightContainer.spacing = 15
+        rightContainer.spacing = 10
         rightContainer.edgeInsets = NSEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
         rightContainer.distribution = .fill
         
@@ -89,7 +100,10 @@ final class MenuPlayer: NSView {
             
             settingsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
             settingsButton.widthAnchor.constraint(equalToConstant: 24),
-            settingsButton.heightAnchor.constraint(equalToConstant: 24)
+            settingsButton.heightAnchor.constraint(equalToConstant: 24),
+            
+            progressIndicator.heightAnchor.constraint(equalToConstant: 4),
+            progressIndicator.widthAnchor.constraint(equalTo: rightContainer.widthAnchor)
         ])
     }
 

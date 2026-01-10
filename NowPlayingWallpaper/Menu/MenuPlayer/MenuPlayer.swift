@@ -8,14 +8,15 @@ final class MenuPlayer: NSView {
     private let playConfig = NSImage.SymbolConfiguration(pointSize: 22, weight: .bold)
     private let buttonConfig = NSImage.SymbolConfiguration(pointSize: 16, weight: .medium)
     
+    private let settingsButton = NSButton()
+    
     private let backgroundView = MenuPlayerBackgroundView()
     private let artworkView = NSImageView()
     private let info = MenuPlayerInfoStackView()
     private lazy var controls = MenuPlayerControlsStack(target: MenuActions.shared, playConfig: playConfig, buttonConfig: buttonConfig)
-    private let bottomSeparator = NSView()
 
     init() {
-        super.init(frame: NSRect(x: 0, y: 0, width: 340, height: 120))
+        super.init(frame: NSRect(x: 0, y: 0, width: 340, height: 140))
         setupUI()
         bindViewModel()
     }
@@ -29,44 +30,66 @@ final class MenuPlayer: NSView {
         addSubview(backgroundView)
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         
-        bottomSeparator.wantsLayer = true
-        bottomSeparator.layer?.backgroundColor = NSColor.separatorColor.cgColor
-        addSubview(bottomSeparator)
-        bottomSeparator.translatesAutoresizingMaskIntoConstraints = false
-        
         artworkView.wantsLayer = true
         artworkView.layer?.cornerRadius = 8
+        artworkView.imageScaling = .scaleProportionallyUpOrDown
         
-        let infoControls = NSStackView(views: [info, controls])
-        infoControls.orientation = .vertical
-        infoControls.alignment = .left
-
-        let mainStack = NSStackView(views: [artworkView, infoControls])
-        mainStack.edgeInsets = NSEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        mainStack.spacing = 15
+        settingsButton.image = NSImage(systemSymbolName: "ellipsis.circle", accessibilityDescription: "Settings")
+        settingsButton.bezelStyle = .shadowlessSquare
+        settingsButton.isBordered = false
+        settingsButton.focusRingType = .none
+        settingsButton.target = MenuActions.shared
+        settingsButton.action = #selector(MenuActions.showMenu(_:))
+            
+        addSubview(settingsButton)
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let spacer = NSView()
+        spacer.setContentHuggingPriority(.defaultLow, for: .vertical)
+        spacer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        
+        let infoContainer = NSStackView(views: [info, settingsButton])
+        
+        let rightContainer = NSStackView(views: [infoContainer, controls, spacer])
+        rightContainer.orientation = .vertical
+        rightContainer.alignment = .leading
+        rightContainer.spacing = 15
+        rightContainer.edgeInsets = NSEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
+        rightContainer.distribution = .fill
+        
+        let mainStack = NSStackView(views: [artworkView, rightContainer])
+        mainStack.orientation = .horizontal
         mainStack.alignment = .top
-        addSubview(mainStack)
+        mainStack.spacing = 15
+        mainStack.edgeInsets = NSEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         mainStack.translatesAutoresizingMaskIntoConstraints = false
+        mainStack.distribution = .fill
+                
+        addSubview(mainStack)
 
         NSLayoutConstraint.activate([
-            self.widthAnchor.constraint(equalToConstant: 340),
             backgroundView.topAnchor.constraint(equalTo: topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                    
+            
+            info.leadingAnchor.constraint(equalTo: rightContainer.leadingAnchor),
+            info.trailingAnchor.constraint(equalTo: rightContainer.trailingAnchor),
+            
+            rightContainer.topAnchor.constraint(equalTo: mainStack.topAnchor),
+            rightContainer.bottomAnchor.constraint(equalTo: mainStack.bottomAnchor),
+            
             mainStack.topAnchor.constraint(equalTo: topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-                    
-            artworkView.widthAnchor.constraint(equalToConstant: 100),
-            artworkView.heightAnchor.constraint(equalToConstant: 100),
+            mainStack.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            bottomSeparator.heightAnchor.constraint(equalToConstant: 1),
-            bottomSeparator.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bottomSeparator.leadingAnchor.constraint(equalTo: leadingAnchor),
-            bottomSeparator.trailingAnchor.constraint(equalTo: trailingAnchor)
+            artworkView.widthAnchor.constraint(equalToConstant: 110),
+            artworkView.heightAnchor.constraint(equalToConstant: 110),
+            
+            settingsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            settingsButton.widthAnchor.constraint(equalToConstant: 24),
+            settingsButton.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
 

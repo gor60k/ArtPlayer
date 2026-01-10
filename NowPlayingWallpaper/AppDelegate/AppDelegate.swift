@@ -3,7 +3,7 @@ import Cocoa
 // MARK: - в этом классе собирается приложение
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    private var menuController: MenuController?
+    private var popover: PopoverManager?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
@@ -12,11 +12,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let actions = MenuActions.shared
         let wallpaper = WallpaperManager.shared
         
-        menuController = MenuController()
-            
-        if let menu = menuController?.statusItem.menu {
-            menu.restoreAllSelections()
-        }
+        popover = PopoverManager.shared
         
         wallpaper.update(with: actions.currentPlayer)
     }

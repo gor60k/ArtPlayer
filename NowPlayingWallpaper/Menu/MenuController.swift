@@ -21,9 +21,9 @@ final class MenuController: NSObject, NSMenuDelegate {
     
     
     private func refreshMenu() {
-        let menu = menuBuilder.build(with: playerView)
-        menu.delegate = self
-        statusItem.menu = menu
+//        let menu = menuBuilder.build(with: playerView)
+//        menu.delegate = self
+//        statusItem.menu = menu
     }
     
     private func setupObserver() {

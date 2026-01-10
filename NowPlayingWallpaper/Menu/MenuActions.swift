@@ -2,6 +2,7 @@ import Cocoa
 
 final class MenuActions: NSObject {
     static let shared = MenuActions()
+    private lazy var menuBuilder = MenuBuilder()
     
     private let spotifyPlayer = SpotifyPlayer()
     private let appleMusicPlayer = AppleMusicPlayer()
@@ -39,6 +40,12 @@ final class MenuActions: NSObject {
     
     @objc func prevTrack() {
         currentPlayer?.previousTrack()
+    }
+    
+    @objc func showMenu(_ sender: NSButton) {
+        let menu = MenuBuilder().build()
+        let menuStartPoint = NSPoint(x: 0, y: sender.frame.height)
+        menu.popUp(positioning: nil, at: menuStartPoint, in: sender)
     }
     
     // MARK: - действия пунктов меню

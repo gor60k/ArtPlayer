@@ -12,6 +12,11 @@ protocol MusicPlayer {
     func previousTrack()
 }
 
+struct PlaylistInfo {
+    let id: String
+    let name: String
+}
+
 struct TrackInfo {
     let title: String
     let artist: String

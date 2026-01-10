@@ -8,13 +8,21 @@ final class MenuPlayerInfoStackView: NSStackView {
         self.trackLabel = NSTextField.createTrackLabel()
         self.artistLabel = NSTextField.createArtistLabel()
         
+        self.trackLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        self.artistLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+                
+        self.trackLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        self.artistLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
         super.init(frame: .zero)
         
         [trackLabel, artistLabel].forEach { addArrangedSubview($0) }
         orientation = .vertical
-        alignment = .left
-        distribution = .gravityAreas
+        alignment = .leading
         spacing = 2
+        
+        translatesAutoresizingMaskIntoConstraints = false
+
     }
     
     required init?(coder: NSCoder) { fatalError() }

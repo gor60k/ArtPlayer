@@ -1,0 +1,94 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram name="Страница-1" id="jyJi1tWAzqIgmhZOB-2b">
+    <mxGraphModel dx="1018" dy="708" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="80" width="240" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-pMpAuNhY2orPx-W7k3p-2" target="-pMpAuNhY2orPx-W7k3p-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-2" value="Выбрать плеер" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="130" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-6" value="Плеер" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="100" width="60" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="-pMpAuNhY2orPx-W7k3p-7" target="-pMpAuNhY2orPx-W7k3p-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-7" value="Добавить трек" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="180" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-9" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="240" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-10" value="Spotify" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="60" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-11" value="Apple Musica" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="110" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-13" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="200" width="240" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-14" value="Добавить в любимые треки" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="220" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-15" value="Плейлист 1" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="310" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-17" value="Плейлист 2" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="360" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-19" value="" style="line;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="290" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-20" value="Ваши плейлисты" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="270" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-21" value="" style="line;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="240" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-22" value="" style="line;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="110" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-23" value="Обои" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="180" y="230" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-24" value="Отображать как обои" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="260" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-25" value="Во весь экран" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="340" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-26" value="По размеру экрана" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="390" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-27" value="Настройки обоев" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="180" y="310" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-28" value="" style="line;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="320" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-29" value="По центру" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="440" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-32" value="" style="line;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="490" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-33" value="Поддержать авторов" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="510" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-34" value="" style="line;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="560" width="200" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-pMpAuNhY2orPx-W7k3p-35" value="Quit" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="580" width="200" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

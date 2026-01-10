@@ -1,24 +1,43 @@
 import Cocoa
 
-final class MenuBuilder {
+final class MenuBuilder: NSObject, NSMenuDelegate {
     private let actions: MenuActions
+    private let spotifyPlayer = SpotifyPlayer()
+    private let appleMusicPlayer = AppleMusicPlayer()
+    private let settings = SettingsService.shared
+    var currentPlayer: MusicPlayer? {
+        settings.selectedPlayer == "Spotify" ? spotifyPlayer : appleMusicPlayer
+    }
     
     init(actions: MenuActions = .shared) {
         self.actions = actions
     }
     
-    func build(with PlayerView: NSView) -> NSMenu {
+    func build() -> NSMenu {
         let menu = NSMenu()
+        menu.delegate = self
         
-        let playerItem = NSMenuItem()
-        playerItem.view = PlayerView
-        menu.addItem(playerItem)
+        let playerSectionHeader = NSMenuItem.sectionHeader(title: "Плеер")
+        menu.addItem(playerSectionHeader)
         
         menu.addItem(createSubmenuItem(
             title: "Выбрать плеер",
             options: PlayerType.allCases,
             selectedTitle: SettingsService.shared.selectedPlayer
         ))
+        
+        let playlistItem = NSMenuItem(
+            title: "Добавить трек",
+            action: nil,
+            keyEquivalent: ""
+        )
+        playlistItem.target = actions
+        menu.addItem(playlistItem)
+        
+        menu.addItem(.separator())
+        
+        let wallpaperSectionHeader = NSMenuItem.sectionHeader(title: "Обои")
+        menu.addItem(wallpaperSectionHeader)
         
         let wallpaperToggle = NSMenuItem(
             title: "Отображать как обои",
@@ -33,6 +52,8 @@ final class MenuBuilder {
             title: "Настройки обоев",
             options: MenuType.allCases
         ))
+        
+        menu.addItem(.separator())
         
         menu.addItem(createSubmenuItem(
             title: "Поддержать автора",

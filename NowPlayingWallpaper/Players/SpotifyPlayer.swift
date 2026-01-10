@@ -60,18 +60,17 @@ final class SpotifyPlayer: MusicPlayer {
         end if
         """
         
-        return await withCheckedContinuation { continuation in
-            DispatchQueue.global(qos: .userInitiated).async {
-                var error: NSDictionary?
-                let script = NSAppleScript(source: scriptSource)!
-                let urlString = script.executeAndReturnError(&error).stringValue ?? ""
-                
-                if let url = URL(string: urlString) {
-                    continuation.resume(returning: url)
-                } else {
-                    continuation.resume(returning: nil)
-                }
+        return await MainActor.run {
+            var error: NSDictionary?
+            guard let script = NSAppleScript(source: scriptSource) else { return nil }
+                  
+            let descriptor = script.executeAndReturnError(&error)
+            let urlString = descriptor.stringValue ?? ""
+            
+            if !urlString.isEmpty {
+                return URL(string: urlString)
             }
+            return nil
         }
     }
 }

@@ -12,9 +12,18 @@ final class MenuPlayerControlsStack: NSStackView {
         
         super.init(frame: .zero)
         
+        let leftSpacer = NSView()
+        let rightSpacer = NSView()
+        
+        addArrangedSubview(leftSpacer)
         [prevBtn, playPauseBtn, nextBtn].forEach { addArrangedSubview($0) }
+        addArrangedSubview(rightSpacer)
+        
         spacing = 20
+        distribution = .gravityAreas
         alignment = .centerY
+        
+        leftSpacer.widthAnchor.constraint(equalTo: rightSpacer.widthAnchor).isActive = true
         
         NSLayoutConstraint.activate([
             prevBtn.widthAnchor.constraint(equalToConstant: 24),

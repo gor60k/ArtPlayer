@@ -4,26 +4,12 @@ import Combine
 final class MenuController: NSObject, NSMenuDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     private var cancellables = Set<AnyCancellable>()
-    private let menuBuilder = MenuBuilder()
     
     private lazy var playerView: MenuPlayer = MenuPlayer()
     
     override init() {
         super.init()
-        setupStatusItem()
         setupObserver()
-    }
-    
-    private func setupStatusItem() {
-        statusItem.button?.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: "Now Playing")
-        refreshMenu()
-    }
-    
-    
-    private func refreshMenu() {
-//        let menu = menuBuilder.build(with: playerView)
-//        menu.delegate = self
-//        statusItem.menu = menu
     }
     
     private func setupObserver() {

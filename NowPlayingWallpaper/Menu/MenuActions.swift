@@ -43,9 +43,21 @@ final class MenuActions: NSObject {
     }
     
     @objc func showMenu(_ sender: NSButton) {
-        let menu = MenuBuilder().build()
-        let menuStartPoint = NSPoint(x: 0, y: sender.frame.height)
-        menu.popUp(positioning: nil, at: menuStartPoint, in: sender)
+        guard let event = NSApp.currentEvent else { return }
+        
+        switch event.type {
+        case .rightMouseDown:
+            let menu = menuBuilder.build()
+            menu.popUp(
+                positioning: nil,
+                at: event.locationInWindow,
+                in: sender
+            )
+        case .leftMouseUp:
+            print("соси")
+        default:
+            break
+        }
     }
     
     // MARK: - действия пунктов меню

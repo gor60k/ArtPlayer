@@ -12,7 +12,7 @@ final class SpotifyPlayer: MusicPlayer {
     func fetchCurrentTrackInfo() async -> TrackInfo? {
         let scriptSource = """
         if application "\(appleScriptID)" is running then
-            tell application "\(appleScriptID)" to return {name of current track, artist of current track, player state as string}
+            tell application "\(appleScriptID)" to return {name of current track, artist of current track, player state as string, player position as string, duration of current track}
         end if
         return nil
         """
@@ -27,8 +27,16 @@ final class SpotifyPlayer: MusicPlayer {
         let artist = result.atIndex(2)?.stringValue ?? "-"
         let state = result.atIndex(3)?.stringValue ?? "paused"
         let isPlaying = state.lowercased().contains("play") || state.contains("kPPl")
-            
-        return TrackInfo(title: track, artist: artist, isPlaying: isPlaying)
+        
+        let rawPosition = result.atIndex(4)?.stringValue ?? "0"
+        let positionSeconds = Double(rawPosition.replacingOccurrences(of: ",", with: ".")) ?? 0
+        let position = formatTime(positionSeconds)
+        
+        let durationMs = result.atIndex(5)?.doubleValue ?? 0
+        let durationSeconds = durationMs / 1000
+        let duration = formatTime(durationSeconds)
+        
+        return TrackInfo(title: track, artist: artist, isPlaying: isPlaying, position: position, duration: duration)
     }
     
     // MARK: - функция для получения обложки трека

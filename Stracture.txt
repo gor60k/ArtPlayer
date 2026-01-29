@@ -51,3 +51,17 @@ AlbumArtWallpaper/
         tell application id "com.spotify.client" to launch
         return ""
     end if
+    
+    
+    как мне правильно обработать position и duration текущего трека, который я получаю из плеера?
+
+вот остальные данные трека
+
+let track = result.atIndex(1)?.stringValue ?? "Неизвестно"
+        let artist = result.atIndex(2)?.stringValue ?? "-"
+        let state = result.atIndex(3)?.stringValue ?? "paused"
+        let isPlaying = state.lowercased().contains("play") || state.contains("kPPl")
+
+вот так выглядит вывод результата выполнения apple script
+
+это инфо трека <NSAppleEventDescriptor: [ 'utxt'("Eren Zahyo"), 'utxt'("Sawano Hiroyuki"), 'utxt'("playing"), 'utxt'("0,094999998808"), 383120 ]>

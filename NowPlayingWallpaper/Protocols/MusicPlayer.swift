@@ -21,6 +21,8 @@ struct TrackInfo {
     let title: String
     let artist: String
     let isPlaying: Bool
+    var position: String
+    var duration: String
 }
 
 extension MusicPlayer {
@@ -34,6 +36,14 @@ extension MusicPlayer {
                 NotificationCenter.default.post(name: NSNotification.Name("TrackChanged"), object: nil)
             }
         }
+    }
+    
+    func formatTime(_ seconds: Double) -> String {
+        let totalSeconds = max(0, Int(seconds))
+        let minutes = totalSeconds / 60
+        let seconds = totalSeconds % 60
+        
+        return String(format: "%d:%02d", minutes, seconds)
     }
 }
 

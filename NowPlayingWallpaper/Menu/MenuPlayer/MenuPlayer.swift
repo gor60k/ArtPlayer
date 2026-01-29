@@ -45,21 +45,21 @@ final class MenuPlayer: NSView {
         artworkView.layer?.cornerRadius = 8
         artworkView.imageScaling = .scaleProportionallyUpOrDown
         
-        settingsButton.image = NSImage(systemSymbolName: "ellipsis.circle", accessibilityDescription: "Settings")
-        settingsButton.bezelStyle = .shadowlessSquare
-        settingsButton.isBordered = false
-        settingsButton.focusRingType = .none
-        settingsButton.target = MenuActions.shared
-        settingsButton.action = #selector(MenuActions.showMenu(_:))
-            
-        addSubview(settingsButton)
-        settingsButton.translatesAutoresizingMaskIntoConstraints = false
+//        settingsButton.image = NSImage(systemSymbolName: "ellipsis.circle", accessibilityDescription: "Settings")
+//        settingsButton.bezelStyle = .shadowlessSquare
+//        settingsButton.isBordered = false
+//        settingsButton.focusRingType = .none
+//        settingsButton.target = MenuActions.shared
+//        settingsButton.action = #selector(MenuActions.showMenu(_:))
+//            
+//        addSubview(settingsButton)
+//        settingsButton.translatesAutoresizingMaskIntoConstraints = false
         
         let spacer = NSView()
         spacer.setContentHuggingPriority(.defaultLow, for: .vertical)
         spacer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
-        let infoContainer = NSStackView(views: [info, settingsButton])
+        let infoContainer = NSStackView(views: [info])
         
         let rightContainer = NSStackView(views: [infoContainer, controls, progressIndicator])
         rightContainer.orientation = .vertical
@@ -98,9 +98,9 @@ final class MenuPlayer: NSView {
             artworkView.widthAnchor.constraint(equalToConstant: 110),
             artworkView.heightAnchor.constraint(equalToConstant: 110),
             
-            settingsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            settingsButton.widthAnchor.constraint(equalToConstant: 24),
-            settingsButton.heightAnchor.constraint(equalToConstant: 24),
+//            settingsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+//            settingsButton.widthAnchor.constraint(equalToConstant: 24),
+//            settingsButton.heightAnchor.constraint(equalToConstant: 24),
             
             progressIndicator.heightAnchor.constraint(equalToConstant: 4),
             progressIndicator.widthAnchor.constraint(equalTo: rightContainer.widthAnchor)
@@ -117,6 +117,13 @@ final class MenuPlayer: NSView {
                 self?.info.update(title: trackTitle, artist: artistName)
             }
             .store(in: &cancellables)
+        
+//        Publishers.CombineLatest(viewModel.$position, viewModel.$duration)
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] position, duration in
+//                self?.progressIndicator.doubleValue = CGFloat(position / duration)
+//            }
+//            .store(in: &cancellables)
 
         viewModel.$isPlaying
             .receive(on: DispatchQueue.main)

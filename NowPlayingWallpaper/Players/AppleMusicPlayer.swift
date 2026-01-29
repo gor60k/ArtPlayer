@@ -12,7 +12,7 @@ final class AppleMusicPlayer: MusicPlayer {
     func fetchCurrentTrackInfo() async -> TrackInfo? {
         let scriptSource = """
         if application "\(appleScriptID)" is running then
-            tell application "\(appleScriptID)" to return {name of current track, artist of current track, player state as string}
+            tell application "\(appleScriptID)" to return {name of current track, artist of current track, player state as string, player position as string, duration of current track}
         end if
         return nil
         """
@@ -27,8 +27,11 @@ final class AppleMusicPlayer: MusicPlayer {
         let artist = result.atIndex(2)?.stringValue ?? "-"
         let state = result.atIndex(3)?.stringValue ?? "paused"
         let isPlaying = state.lowercased().contains("play") || state.contains("kPPl")
+        let duration = "0:00"
+        let position = "0:00"
+        
             
-        return TrackInfo(title: track, artist: artist, isPlaying: isPlaying)
+        return TrackInfo(title: track, artist: artist, isPlaying: isPlaying, position: position, duration: duration)
     }
     
     // MARK: - функция для получения обложки трека

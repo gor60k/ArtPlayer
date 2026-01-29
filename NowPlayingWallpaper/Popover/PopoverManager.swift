@@ -4,6 +4,7 @@ final class PopoverManager: NSObject {
     static let shared = PopoverManager()
     
     private let popover = NSPopover()
+    private let menuBuilder = MenuBuilder()
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     
     private override init() {
@@ -21,23 +22,39 @@ final class PopoverManager: NSObject {
     private func setupStatusItem() {
         if let button = statusItem.button {
             button.image = NSImage(systemSymbolName: "music.note", accessibilityDescription: "Now Playing")
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
             button.action = #selector(togglePopover(_:))
             button.target = self
         }
     }
     
-    @objc private func togglePopover(_ sender: Any) {
+    @objc private func togglePopover(_ sender: NSButton) {
         guard let button = statusItem.button else { return }
+        guard let event = NSApp.currentEvent else { return }
         
-        if popover.isShown {
-            popover.performClose(sender)
-        } else {
-            popover.show(
-                relativeTo: button.bounds,
-                of: button,
-                preferredEdge: .minY
+        switch event.type {
+        case .rightMouseUp:
+            let menu = menuBuilder.build()
+            menu.popUp(
+                positioning: nil,
+                at: event.locationInWindow,
+                in: sender
             )
-            popover.contentViewController?.view.window?.makeKey()
+            
+        case .leftMouseUp:
+            if popover.isShown {
+                popover.performClose(sender)
+            } else {
+                popover.show(
+                    relativeTo: button.bounds,
+                    of: button,
+                    preferredEdge: .minY
+                )
+                popover.contentViewController?.view.window?.makeKey()
+            }
+        default:
+            break
         }
+    
     }
 }

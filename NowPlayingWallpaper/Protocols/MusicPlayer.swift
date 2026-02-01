@@ -26,6 +26,7 @@ struct TrackInfo {
 }
 
 extension MusicPlayer {
+    
     func excuteCommand(_ command: String) {
         let script = "if application \"\(appleScriptID)\" is running then tell application \"\(appleScriptID)\" to \(command)"
         
@@ -39,10 +40,9 @@ extension MusicPlayer {
     }
     
     func formatTime(_ seconds: Double) -> String {
-        let totalSeconds = max(0, Int(seconds))
+        let totalSeconds = Int(seconds)
         let minutes = totalSeconds / 60
         let seconds = totalSeconds % 60
-        
         return String(format: "%d:%02d", minutes, seconds)
     }
 }

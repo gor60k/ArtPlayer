@@ -13,18 +13,7 @@ final class MenuPlayer: NSView {
     private let artworkView = NSImageView()
     private let info = MenuPlayerInfoStackView()
     private lazy var controls = MenuPlayerControlsStack(target: MenuActions.shared, playConfig: playConfig, buttonConfig: buttonConfig)
-    
-    private let progressIndicator: NSProgressIndicator = {
-        let bar = NSProgressIndicator()
-        bar.isIndeterminate = false
-        bar.minValue = 0
-        bar.maxValue = 1
-        bar.doubleValue = 0
-        bar.controlSize = .small
-        bar.style = .bar
-        bar.translatesAutoresizingMaskIntoConstraints = false
-        return bar
-    }()
+    private let slider = MenuPlayerSlider()
 
     init() {
         super.init(frame: NSRect(x: 0, y: 0, width: 340, height: 140))
@@ -45,27 +34,15 @@ final class MenuPlayer: NSView {
         artworkView.layer?.cornerRadius = 8
         artworkView.imageScaling = .scaleProportionallyUpOrDown
         
-//        settingsButton.image = NSImage(systemSymbolName: "ellipsis.circle", accessibilityDescription: "Settings")
-//        settingsButton.bezelStyle = .shadowlessSquare
-//        settingsButton.isBordered = false
-//        settingsButton.focusRingType = .none
-//        settingsButton.target = MenuActions.shared
-//        settingsButton.action = #selector(MenuActions.showMenu(_:))
-//            
-//        addSubview(settingsButton)
-//        settingsButton.translatesAutoresizingMaskIntoConstraints = false
-        
         let spacer = NSView()
         spacer.setContentHuggingPriority(.defaultLow, for: .vertical)
         spacer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
-        let infoContainer = NSStackView(views: [info])
-        
-        let rightContainer = NSStackView(views: [infoContainer, controls, progressIndicator])
+        let rightContainer = NSStackView(views: [info, controls, slider])
         rightContainer.orientation = .vertical
         rightContainer.alignment = .leading
         rightContainer.spacing = 10
-        rightContainer.edgeInsets = NSEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
+        rightContainer.edgeInsets = NSEdgeInsets(top: 15, left: 0, bottom: 30, right: 0)
         rightContainer.distribution = .fill
         
         let mainStack = NSStackView(views: [artworkView, rightContainer])
@@ -98,12 +75,7 @@ final class MenuPlayer: NSView {
             artworkView.widthAnchor.constraint(equalToConstant: 110),
             artworkView.heightAnchor.constraint(equalToConstant: 110),
             
-//            settingsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-//            settingsButton.widthAnchor.constraint(equalToConstant: 24),
-//            settingsButton.heightAnchor.constraint(equalToConstant: 24),
             
-            progressIndicator.heightAnchor.constraint(equalToConstant: 4),
-            progressIndicator.widthAnchor.constraint(equalTo: rightContainer.widthAnchor)
         ])
     }
 
@@ -118,12 +90,12 @@ final class MenuPlayer: NSView {
             }
             .store(in: &cancellables)
         
-//        Publishers.CombineLatest(viewModel.$position, viewModel.$duration)
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] position, duration in
-//                self?.progressIndicator.doubleValue = CGFloat(position / duration)
-//            }
-//            .store(in: &cancellables)
+        Publishers.CombineLatest(viewModel.$position, viewModel.$duration)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] position, duration in
+                self?.slider.update(position: position, duration: duration)
+            }
+            .store(in: &cancellables)
 
         viewModel.$isPlaying
             .receive(on: DispatchQueue.main)

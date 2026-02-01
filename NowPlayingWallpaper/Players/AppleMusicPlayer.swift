@@ -27,11 +27,21 @@ final class AppleMusicPlayer: MusicPlayer {
         let artist = result.atIndex(2)?.stringValue ?? "-"
         let state = result.atIndex(3)?.stringValue ?? "paused"
         let isPlaying = state.lowercased().contains("play") || state.contains("kPPl")
-        let duration = "0:00"
-        let position = "0:00"
         
-            
-        return TrackInfo(title: track, artist: artist, isPlaying: isPlaying, position: position, duration: duration)
+        let position = result.atIndex(4)?.doubleValue ?? 0.0
+        let formattedPosition = formatTime(position)
+        
+        let duration = result.atIndex(5)?.doubleValue ?? 1.0
+        let durationInSeconds = duration / 1000
+        let formattedDuration = formatTime(durationInSeconds)
+        
+        return TrackInfo(
+            title: track,
+            artist: artist,
+            isPlaying: isPlaying,
+            position: formattedPosition,
+            duration: formattedDuration
+        )
     }
     
     // MARK: - функция для получения обложки трека
